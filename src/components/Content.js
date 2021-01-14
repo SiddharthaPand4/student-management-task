@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {Col, Container, Row} from "react-bootstrap"
 
 export default function Content() {
     const [courses, setCourses] = useState({"": []})
@@ -44,100 +45,109 @@ export default function Content() {
 
     return (
         <div>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                <div>
-                    <b>Course</b>
-                </div>
-                <div>
-                    <div>
-                        <select style={{backgroundColor: 'blue'}} value={currentCourse} onChange={handleCourseChange}>
-                            <option value={""}>Select Course</option>
-                            {Object.keys(courses).filter(course => course).map(course =>
-                                <option value={course} key={course}>{course}</option>
-                            )}
-                        </select>
-                    </div>
-                    <div>
-                        <button
-                            onClick={()=> setCourseAddMode(true)}
-                        >
-                            Add Course
-                        </button>
-                    </div>
-                    {courseAddMode &&
-                    <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div>
-                            <input
-                                value={currentCourse}
-                                onChange={e => setCurrentCourse(e.target.value)}
-                                placeholder={"course name"}
-                            />
+            <Container fluid>
+                <Row style={{display: 'flex', flexDirection: 'row'}}>
+                    <Col>
+                        <div style={{verticalAlign: 'middle', alignItems: 'center'}}>
+                            <b>Course</b>
                         </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <select style={{backgroundColor: 'blue'}} value={currentCourse} onChange={handleCourseChange}>
+                                <option value={""}>Select Course</option>
+                                {Object.keys(courses).filter(course => course).map(course =>
+                                    <option value={course} key={course}>{course}</option>
+                                )}
+                            </select>
+                        </div>
+                        <br/>
                         <div>
                             <button
-                                onClick={()=> setCourseAddMode(false)}
+                                onClick={()=> setCourseAddMode(true)}
                             >
-                                Cancel
+                                Add Course
                             </button>
                         </div>
+                        <br/>
+                        {courseAddMode &&
+                        <Row style={{display: 'flex', flexDirection: 'row'}}>
+                            <Col>
+                                <input
+                                    value={currentCourse}
+                                    onChange={e => setCurrentCourse(e.target.value)}
+                                    placeholder={"course name"}
+                                />
+                            </Col>
+                            <Col>
+                                <button
+                                    onClick={()=> setCourseAddMode(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </Col>
+                            <Col>
+                                <button
+                                    onClick={handleCourseAdd}
+                                >
+                                    Add
+                                </button>
+                            </Col>
+                        </Row>}
+                    </Col>
+                </Row>
+                <br/><br/>
+                <Row style={{display: 'flex', flexDirection: 'row'}}>
+                    <Col>
+                        <b>Students</b>
+                    </Col>
+                    <Col>
                         <div>
+                            <select style={{backgroundColor: 'blue'}} value={currentStudent} onChange={e => setCurrentStudent(e.target.value)}>
+                                <option value={""}>Select Student</option>
+                                {currentStudents.map(student =>
+                                    <option value={student} key={student}>{student}</option>
+                                )}
+                            </select>
+                        </div>
+                        <br/>
+                        <div>
+                            {currentCourse &&
                             <button
-                                onClick={handleCourseAdd}
+                                onClick={()=> setAddStudentMode(true)}
                             >
-                                Add
+                                Add Student
                             </button>
+                            }
                         </div>
-                    </div>}
-                </div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                <div>
-                    <b>Students</b>
-                </div>
-                <div>
-                    <div>
-                        <select style={{backgroundColor: 'blue'}} value={currentStudent} onChange={e => setCurrentStudent(e.target.value)}>
-                            <option value={""}>Select Student</option>
-                            {currentStudents.map(student =>
-                                <option value={student} key={student}>{student}</option>
-                            )}
-                        </select>
-                    </div>
-                    <div>
-                        {currentCourse &&
-                        <button
-                            onClick={()=> setAddStudentMode(true)}
-                        >
-                            Add Student
-                        </button>
-                        }
-                    </div>
-                    {addStudentMode &&
-                    <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div>
-                            <input
-                                value={currentStudent}
-                                onChange={e => setCurrentStudent(e.target.value)}
-                                placeholder={"Student Name"}
-                            />
-                        </div>
-                        <div>
-                            <button
-                                onClick={()=> setAddStudentMode(false)}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                        <div>
-                            <button
-                                onClick={handleStudentAdd}
-                            >
-                                Add
-                            </button>
-                        </div>
-                    </div>}
-                </div>
-            </div>
+                        <br/>
+                        {addStudentMode &&
+                        <Row style={{display: 'flex', flexDirection: 'row'}}>
+                            <Col>
+                                <input
+                                    value={currentStudent}
+                                    onChange={e => setCurrentStudent(e.target.value)}
+                                    placeholder={"Student Name"}
+                                />
+                            </Col>
+                            <Col>
+                                <button
+                                    onClick={()=> setAddStudentMode(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </Col>
+                            <Col>
+                                <button
+                                    onClick={handleStudentAdd}
+                                >
+                                    Add
+                                </button>
+                            </Col>
+                        </Row>}
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
